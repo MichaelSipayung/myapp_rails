@@ -1,0 +1,28 @@
+<h1> Hello Ruby on Rails    </h1>
+<h1>Articles#index</h1>
+<p>Find me in app/views/articles/index.html.erb</p>
+
+<%# passing the data to the view %>
+<h1> Articles </h1>
+<ul>
+    <%# mixture html and erb, evaluated but need not show the output %>
+    <% @articles.each do |article|%>
+    <li>
+        <%# evaluated, and need to show the value %>
+        <%# link each article id %>
+        <a href="<%= article_path(article)%>"> <%=article.title%> </a>
+    </li>
+    <%end%>
+</ul>
+
+<%# using link_to : call appropriate path helper to convert the object to a path %>
+<h1> Articles  Second Version </h1>
+<ul>
+    <% @articles.each do |artice|%>
+        <li>
+            <%= link_to artice.title, artice %> <%# first arg is link's text, the last is link dest%>
+        </li>
+    <%end%>
+</ul>
+<%# link for create a new article %>
+<%= link_to "New Article", new_article_path%>
