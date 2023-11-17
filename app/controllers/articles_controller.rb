@@ -18,6 +18,22 @@ class ArticlesController < ApplicationController
       #with status unprocessable_entity
     end
   end
+  def edit #action edit, fecch article by id, and store in @article
+    @article = Article.find(params[:id])
+  end
+  def update #action update
+    @article = Article.find(params[:id])
+    if @article.update(article_params)  #update article
+      redirect_to @article #redirect to article, make new request
+    else #if update failed, render specific view , /articles/:id/edit
+      render :edit, status: :unprocessable_entity #render specific view
+    end
+  end
+  def destroy #action destroy
+    @article = Article.find(params[:id])
+    @article.destroy #destroy article
+    redirect_to root_path status: :see_other #redirect to root_path, make new request
+  end
   private
     def article_params #private method article_params to permit title and body
       params.require(:article).permit(:title, :body)
